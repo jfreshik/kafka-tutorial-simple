@@ -1,0 +1,10 @@
+server:
+  port: 8088
+
+kafka:
+  bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+
+  topic:
+    name: chelab-topic
+    partitions: 1
+    replication-factors: 3
