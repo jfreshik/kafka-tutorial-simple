@@ -40,7 +40,6 @@ public class ProducerHandler {
                 System.out.println("Sent message=[" + message + "] with offset=[" + result.getRecordMetadata().offset() + "]");
             }
         });
-
     }
 
 }
