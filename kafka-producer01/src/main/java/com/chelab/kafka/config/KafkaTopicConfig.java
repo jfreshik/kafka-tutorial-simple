@@ -14,16 +14,16 @@ import java.util.Map;
 @Configuration
 public class KafkaTopicConfig {
 
-    @Value(value = "${kafka.bootstrap-servers}")
+    @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value(value = "${kafka.topic.name}")
+    @Value(value = "${spring.kafka.topic}")
     private String topicName;
 
-    @Value(value = "${kafka.topic.partitions}")
+    @Value(value = "${spring.kafka.topic-setting.partitions}")
     private int partitions;
 
-    @Value(value = "${kafka.topic.replication-factors}")
+    @Value(value = "${spring.kafka.topic-setting.replicas}")
     private int replicationFactors;
 
 
@@ -40,7 +40,6 @@ public class KafkaTopicConfig {
         return TopicBuilder.name(topicName)
                 .partitions(partitions)
                 .replicas(replicationFactors)
-                .compact()
                 .build();
     }
 }

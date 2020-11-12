@@ -16,11 +16,11 @@ public class ProducerHandler {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    @Value("${kafka.topic.name}")
+    @Value("${spring.kafka.topic}")
     private String topicName;
 
 
-    @PostMapping("/produce")
+    @PostMapping("/publish")
     public String produceMessage(@RequestParam String message) {
         sendMessage(message);
         return "OK";

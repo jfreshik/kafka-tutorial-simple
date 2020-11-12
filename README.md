@@ -19,20 +19,21 @@ topic: **chelab-topic**
 server:
   port: 8088
 
-kafka:
-  bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+spring:
+  kafka:
+    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+    topic: chelab-topic
 
-  topic:
-    name: chelab-topic
-    partitions: 1
-    replication-factors: 3
+    topic-setting:
+      partitions: 3
+      replicas: 3
 
 ```
 
 ### 메시지 발송 처리
 ProducerHandler.java
 ```java
-    @PostMapping("/produce")
+    @PostMapping("/publish")
     public String produceMessage(@RequestParam String message) {
         sendMessage(message);
         return "OK";
@@ -62,7 +63,7 @@ ProducerHandler.java
 ### 메시지 발송 테스트
 
 ```shell script
-$ curl -X POST http://localhost:8088/produce?message=hello
+$ curl -X POST http://localhost:8088/publish?message=hello
 ```
 
 ## Consumer
@@ -72,17 +73,14 @@ $ curl -X POST http://localhost:8088/produce?message=hello
 server:
   port: 8089
 
-kafka:
-  bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+spring:
+  kafka:
+    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
 
-  topic:
-    name: chelab-topic
-    partitions: 1
-    replication-factors: 3
+    topic: chelab-topic
 
-  consumer:
-    group-id: chelab-consumer-group01
-
+    consumer:
+      group-id: chelab-consumer-group
 ```
 
 
@@ -99,8 +97,8 @@ public class KafkaConsumerConfig {
 
 ConsumerHandler.java
 ```java
-    @KafkaListener(topics = "${kafka.topic.name}", groupId = "${kafka.topic.group-id}")
-    public void listen01(String message) {
+    @KafkaListener(topics = "${spring.kafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
+    public void onMessage(String message) {
         System.out.println("Received Message in listen01: " + message);
     }
 ```
