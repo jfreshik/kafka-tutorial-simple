@@ -12,6 +12,14 @@ bootstrap servers:
 
 topic: **chelab-topic**
 
+### dependency
+```xml
+    <dependency>
+        <groupId>org.springframework.kafka</groupId>
+        <artifactId>spring-kafka</artifactId>
+    </dependency>
+```
+
 ## Producer
 
 ### application.yml
