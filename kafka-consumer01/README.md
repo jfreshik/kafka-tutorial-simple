@@ -7,12 +7,12 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+    bootstrap-servers: 127.0.0.1:9092
 
-    topic: chelab-topic
+    topic: simple-topic
 
     consumer:
-      group-id: chelab-consumer-group
+      group-id: simple-consumer-group
 ```
 
 

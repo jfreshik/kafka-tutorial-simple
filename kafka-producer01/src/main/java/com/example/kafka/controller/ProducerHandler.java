@@ -1,24 +1,25 @@
-# Kafka Producer
+package com.example.kafka.controller;
 
-## application.yml
-```yaml
-server:
-  port: 8088
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-spring:
-  kafka:
-    bootstrap-servers: 127.0.0.1:9092
-    topic: simple-topic
+@RestController
+@RequiredArgsConstructor
+public class ProducerHandler {
 
-    topic-setting:
-      partitions: 3
-      replicas: 1
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-```
+    @Value("${spring.kafka.topic}")
+    private String topicName;
 
-## 메시지 발송 처리
-ProducerHandler.java
-```java
+
     @PostMapping("/publish")
     public String produceMessage(@RequestParam String message) {
         sendMessage(message);
@@ -40,14 +41,5 @@ ProducerHandler.java
             }
         });
     }
-```
 
-> kafkaTemplate.send(topicName, message) 으로 메시지 비동기 발송
-> ListenableFuture<SendResult<String, String>> future 에 callback 등록해 성공/실패 처리
-
-
-## 메시지 발송 테스트
-
-```shell script
-$ curl -X POST http://localhost:8088/publish?message=hello
-```
+}

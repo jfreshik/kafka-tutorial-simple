@@ -8,7 +8,7 @@
 		<version>2.3.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.chelab.kafka</groupId>
+	<groupId>com.example.kafka</groupId>
 	<artifactId>kafka-consumer01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kafka consumer</name>

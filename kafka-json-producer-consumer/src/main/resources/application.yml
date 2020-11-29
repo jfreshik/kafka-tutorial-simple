@@ -3,16 +3,16 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+    bootstrap-servers: 127.0.0.1:9092
 
-    topic: chelab-person-topic
+    topic: simple-person-topic
 
     topic-setting:
       partitions: 3
-      replicas: 3
+      replicas: 1
 
     consumer:
-      group-id: chelab-consumer-person-group
+      group-id: simple-consumer-person-group
 
 
 logging.level:
